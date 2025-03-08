@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ApolloProviderWrapper from '@/components/apolloProviderWrapper';
+import ApolloProviderWrapper from '../components/apolloProviderWrapper';
 import { Poppins } from "next/font/google";
 import "./globals.css";
 

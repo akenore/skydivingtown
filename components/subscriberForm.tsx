@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { gql, useMutation, useQuery } from '@apollo/client';
-import client from '@/lib/apollo-client';
-import SuccessMessage from '@/components/ui/successMessage';
-import SkeletonForm from '@/components/ui/skeletonForm';
-import CalendarModalProps from '@/components/ui/calendar';
+import client from '../lib/apollo-client';
+import SuccessMessage from '../components/ui/successMessage';
+import SkeletonForm from '../components/ui/skeletonForm';
+import CalendarModalProps from '../components/ui/calendar';
 
 const GET_EVENT_DATES = gql`
   query GetEventDates {

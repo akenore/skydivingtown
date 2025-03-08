@@ -1,5 +1,9 @@
+'use client';
+
 import { Datepicker } from 'flowbite-react';
 import { CustomFlowbiteTheme } from 'flowbite-react';
+import { useMemo, useCallback } from 'react';
+
 
 interface CalendarProps {
      availableDates: {
@@ -54,12 +58,12 @@ const customTheme: CustomFlowbiteTheme['datepicker'] = {
           days: {
                header: {
                     base: "mb-2 grid grid-cols-7",
-                    title: "h-10 text-center text-2xl font-extrabold leading-6 text-white"
+                    title: "h-10 text-center md:text-2xl font-extrabold leading-6 text-white"
                },
                items: {
-                    base: "grid w-full grid-cols-9 gap-2",
+                    base: "grid w-full grid-cols-7 gap-2",
                     item: {
-                         base: "block flex-1 cursor-pointer rounded-lg border text-center text-2xl font-semibold leading-10 text-white hover:bg-celticBlue h-10",
+                         base: "block flex-1 cursor-pointer rounded-lg border text-center md:text-2xl font-semibold leading-10 text-white hover:bg-celticBlue h-10",
                          selected: "bg-green-200 text-black hover:bg-azure bg-green-200",
                          disabled: "text-gray-900 cursor-not-allowed hover:bg-transparent"
                     }
@@ -98,32 +102,32 @@ const customTheme: CustomFlowbiteTheme['datepicker'] = {
      }
 };
 
-const Calendar: React.FC<CalendarProps> = ({ availableDates, selectedDate, onChange }) => {
-     const eventDates = availableDates.map(d => new Date(d.date));
-     const minDate = eventDates.length > 0 ? new Date(Math.min(...eventDates.map(d => d.getTime()))) : new Date();
-     const maxDate = eventDates.length > 0 ? new Date(Math.max(...eventDates.map(d => d.getTime()))) : new Date();
-
+const Calendar = ({ availableDates, selectedDate, onChange }: CalendarProps) => {
+     const eventDates = useMemo(() => availableDates.map(d => new Date(d.date)), [availableDates]);
+ 
+     const minDate = useMemo(() => eventDates.length ? new Date(Math.min(...eventDates.map(d => d.getTime()))) : undefined, [eventDates]);
+     const maxDate = useMemo(() => eventDates.length ? new Date(Math.max(...eventDates.map(d => d.getTime()))) : undefined, [eventDates]);
+ 
+     const handleChange = useCallback((date: Date | null) => {
+         const eventDate = date ? availableDates.find(d => new Date(d.date).toDateString() === date.toDateString()) : null;
+         onChange(date, eventDate?.id || '');
+     }, [availableDates, onChange]);
+ 
      return (
-          <Datepicker
-               theme={customTheme}
-               inline
-               minDate={minDate}
-               maxDate={maxDate}
-               value={selectedDate}
-               onChange={(date) => {
-                    const eventDate = date ? availableDates.find(d =>
-                         new Date(d.date).toDateString() === date.toDateString()
-                    ) : null;
-                    onChange(date, eventDate?.id || '');
-               }}
-               showTodayButton={false}
-               showClearButton={false}
-               
-               language="fr-FR"
-               weekStart={1}
-
-          />
+         <Datepicker
+             theme={customTheme}
+             inline
+             minDate={minDate}
+             maxDate={maxDate}
+             value={selectedDate}
+             defaultValue={minDate}
+             onChange={handleChange}
+             showTodayButton={false}
+             showClearButton={false}
+             language="fr-FR"
+             weekStart={1}
+         />
      );
-};
+ };
 
 export default Calendar;

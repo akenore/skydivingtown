@@ -5,9 +5,9 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 
-import Hero from '@/components/hero';
-import Footer from '@/components/footer';
-import SubscriberForm from '@/components/subscriberForm';
+import Hero from '../components/hero';
+import Footer from '../components/footer';
+import SubscriberForm from '../components/subscriberForm';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -99,7 +99,7 @@ export default function Home() {
           <p className="px-5 my-10 text-center text-[1.25] md:text-[1.875rem]">
             Sentez l’adrénaline et vivez l’expérience ultime !{' '}
             <span className="font-bold text-blue-700">Les 200 premiers inscrits</span> profiteront
-            d’une <span className="font-bold text-blue-700">réduction de 50 %</span>. Ne manquez pas
+            d’une <span className="font-bold text-blue-700">réduction de 35 %</span>. Ne manquez pas
             cette opportunité exceptionnelle
           </p>
           <h4 className="text-[2.125rem] font-extrabold text-center my-10 px-8">

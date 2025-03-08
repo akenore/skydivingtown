@@ -8,3 +8,15 @@
      font-weight: normal;
      font-style: normal;
 }
+
+.badge {
+     position: absolute;
+     bottom: 0;
+     left: 0;
+     background-color: #D1C4E9;
+     color: #673AB7;
+     font-size: 0.75rem;
+     font-weight: 500;
+     padding: 0.25rem 0.5rem;
+     border-radius: 0.25rem;
+}
