@@ -2,8 +2,8 @@ import { ApolloClient, InMemoryCache, HttpLink, ApolloLink } from '@apollo/clien
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = new HttpLink({
-  // uri: 'http://localhost:8000/graphql',
-  uri: 'https://restapi.skydivingtown.com/graphql',
+  uri: 'http://localhost:8000/graphql',
+  // uri: 'https://restapi.skydivingtown.com/graphql',
 });
 
 const csrfLink = setContext((_, { headers }) => {
