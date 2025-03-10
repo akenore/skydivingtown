@@ -625,11 +625,11 @@ const SubscriberForm = () => {
 
   const { loading: loadingEvents, error: errorEvents, data: dataEvents } = useQuery<{ allEvents: Event[] }>(GET_EVENT_DATES, { client });
   const { loading: loadingCountries, error: errorCountries, data: dataCountries } = useQuery<{ allCountries: Country[] }>(GET_COUNTRIES, { client });
-  const { 
-    loading: loadingEventDates, 
-    error: errorEventDates, 
-    data: dataEventDates, 
-    refetch: refetchEventDates 
+  const {
+    loading: loadingEventDates,
+    error: errorEventDates,
+    data: dataEventDates,
+    refetch: refetchEventDates
   } = useQuery<{ allEventDates: EventDate[] }>(GET_EVENT_DATES_BY_EVENT, {
     variables: { eventId },
     skip: !eventId,
@@ -639,13 +639,13 @@ const SubscriberForm = () => {
   const [createSubscriber] = useMutation(CREATE_SUBSCRIBER, { client });
 
   const handleDateChange = (date: Date | null, eventDateId: string) => {
-      setSelectedDate(date);
-      setSelectedTime('');
-      const eventDate = dataEventDates?.allEventDates.find(eventDate => eventDate.id === eventDateId);
-      if (eventDate) {
-          const times = eventDate.eventTimes.filter(time => !time.isFull);
-          setAvailableTimes(times);
-      }
+    setSelectedDate(date);
+    setSelectedTime('');
+    const eventDate = dataEventDates?.allEventDates.find(eventDate => eventDate.id === eventDateId);
+    if (eventDate) {
+      const times = eventDate.eventTimes.filter(time => !time.isFull);
+      setAvailableTimes(times);
+    }
   };
 
   useEffect(() => {
@@ -659,8 +659,8 @@ const SubscriberForm = () => {
   }, [eventId, refetchEventDates]);
 
   const handleOptionChange = (option: string) => {
-    setOptions(prev => prev.includes(option) 
-      ? prev.filter(o => o !== option) 
+    setOptions(prev => prev.includes(option)
+      ? prev.filter(o => o !== option)
       : [...prev, option]
     );
   };
@@ -668,13 +668,13 @@ const SubscriberForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedTime || !country || !region) {
-      alert('Please fill in all required fields.');
+      alert('Veuillez remplir tous les champs obligatoires.');
       return;
     }
 
     const selectedTimeSlot = availableTimes.find(t => t.id === selectedTime);
     if (!selectedTimeSlot || selectedTimeSlot.availableSlots < 1) {
-      alert('Selected time slot is no longer available. Please choose another time.');
+      alert("Le créneau horaire sélectionné n'est plus disponible. Veuillez choisir un autre créneau.");
       return;
     }
 
@@ -716,7 +716,7 @@ const SubscriberForm = () => {
   const selectedEvent = dataEvents?.allEvents.find(e => e.id === eventId);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="mx-auto px-4 py-8">
       {isSubmitted && (
         <div ref={successRef} className="mb-8">
           <SuccessMessage />
@@ -752,14 +752,14 @@ const SubscriberForm = () => {
                     key={time.id}
                     type="button"
                     onClick={() => setSelectedTime(time.id)}
-                    className={`p-3 rounded-lg text-left ${selectedTime === time.id 
-                      ? 'bg-blue-600 text-white' 
+                    className={`p-3 rounded-lg text-left ${selectedTime === time.id
+                      ? 'bg-blue-600 text-white'
                       : 'bg-white hover:bg-blue-50 border border-gray-200'}`}
                   >
                     <div className="font-medium">
-                      {new Date(`1970-01-01T${time.time}`).toLocaleTimeString([], { 
-                        hour: '2-digit', 
-                        minute: '2-digit' 
+                      {new Date(`1970-01-01T${time.time}`).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit'
                       })}
                     </div>
                     <div className="text-sm">
@@ -773,7 +773,7 @@ const SubscriberForm = () => {
 
           {selectedDate && availableTimes.length === 0 && (
             <div className="bg-red-100 p-4 rounded-lg text-red-700">
-              No available time slots for this date
+              Aucun créneau horaire disponible pour cette date.
             </div>
           )}
         </div>
@@ -783,16 +783,16 @@ const SubscriberForm = () => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="First Name*"
-            className="w-full p-3 border rounded-lg"
+            placeholder="Prénom*"
+            className="mt-1 bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
             required
           />
           <input
             type="text"
             value={surname}
             onChange={(e) => setSurname(e.target.value)}
-            placeholder="Last Name*"
-            className="w-full p-3 border rounded-lg"
+            placeholder="Nom*"
+            className="mt-1 bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
             required
           />
           <input
@@ -800,47 +800,47 @@ const SubscriberForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email*"
-            className="w-full p-3 border rounded-lg"
+            className="mt-1 bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
             required
           />
           <input
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            placeholder="Phone*"
-            className="w-full p-3 border rounded-lg"
+            placeholder="Téléphone*"
+            className="mt-1 bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
             required
           />
           <input
             type="date"
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
-            className="w-full p-3 border rounded-lg"
+            className="mt-1 bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
             required
           />
-          
-          <div className="p-3 border rounded-lg bg-white">
+
+          <div className="p-4">
             <div className="flex gap-4">
-              <label className="flex items-center gap-2">
+              <label className="flex items-center gap-3 text-white text-[1.25rem]">
                 <input
                   type="radio"
                   name="gender"
                   value="M"
                   checked={gender === 'M'}
                   onChange={(e) => setGender(e.target.value)}
-                  className="w-5 h-5"
+                  className="form-radio w-6 h-6 text-black bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   required
                 />
                 Male
               </label>
-              <label className="flex items-center gap-2">
+              <label className="flex items-center gap-3 text-white text-[1.25rem]">
                 <input
                   type="radio"
                   name="gender"
                   value="F"
                   checked={gender === 'F'}
                   onChange={(e) => setGender(e.target.value)}
-                  className="w-5 h-5"
+                  className="form-radio w-6 h-6 text-black bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
                 Female
               </label>
@@ -850,10 +850,10 @@ const SubscriberForm = () => {
           <select
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            className="w-full p-3 border rounded-lg"
+            className="bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
             required
           >
-            <option value="">Select Country*</option>
+            <option value="">Sélectionner un pays*</option>
             {dataCountries?.allCountries.map((c) => (
               <option key={c.code} value={c.code}>{c.name}</option>
             ))}
@@ -863,68 +863,70 @@ const SubscriberForm = () => {
             type="text"
             value={region}
             onChange={(e) => setRegion(e.target.value)}
-            placeholder="City/Region*"
-            className="w-full p-3 border rounded-lg"
+            placeholder="Ville/Région*"
+            className="bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
             required
           />
         </div>
-
-        <div className="bg-gray-50 p-6 rounded-lg space-y-4">
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Jump Options</h3>
-            {selectedEvent?.options.map((option) => (
-              <label key={option.id} className="flex items-center gap-3 p-3 bg-white rounded-lg border">
-                <input
-                  type="checkbox"
-                  checked={options.includes(option.name)}
-                  onChange={() => handleOptionChange(option.name)}
-                  className="w-5 h-5"
-                />
-                <span>
-                  {option.name} (+{parseFloat(option.amount).toFixed(2)} TND)
-                </span>
-              </label>
-            ))}
+        {selectedEvent && selectedEvent.options && selectedEvent.options.length > 0 && (
+          <div className="bg-azure p-6 rounded-lg space-y-4">
+            <div className="space-y-4">
+              {selectedEvent?.options.map((option) => (
+                <label key={option.id} className="flex items-center gap-3 p-3">
+                  <input
+                    type="checkbox"
+                    checked={options.includes(option.name)}
+                    onChange={() => handleOptionChange(option.name)}
+                    className="form-radio w-6 h-6 text-black bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
+                  <span>
+                    {option.name} (+{parseFloat(option.amount).toFixed(2)} TND)
+                  </span>
+                </label>
+              ))}
+            </div>
           </div>
-
+        )}
+        <div className="bg-azure p-6 rounded-lg space-y-4">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Altitude Preference</h3>
+            <h3 className="block font-medium text-white mb-4 text-[1.25rem]">À quelle altitude souhaitez-vous sauter d&apos;un avion ?*</h3>
             {['3000', '3200', '3500'].map((value) => (
-              <label key={value} className="flex items-center gap-3 p-3 bg-white rounded-lg border">
+              <label key={value} className="flex items-center gap-3">
                 <input
                   type="radio"
                   name="altitude"
                   value={value}
                   checked={altitude === value}
                   onChange={(e) => setAltitude(e.target.value)}
-                  className="w-5 h-5"
+                  className="form-radio w-6 h-6 text-black bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   required
                 />
-                <span>
-                  {value === '3000' ? '3,000m (10,000 feet)' :
-                   value === '3200' ? '3,200m (10,500 feet)' :
-                   '3,500m (11,500 feet)'}
+                <span className='text-white text-[1.25rem]'>
+                  {value === '3000' ? '3,000m (10,000 pieds)' :
+                    value === '3200' ? '3,200m (10,500 pieds)' :
+                      '3,500m (11,500 pieds)'}
                 </span>
               </label>
             ))}
           </div>
-
+        </div>
+        <div className="bg-azure p-6 rounded-lg space-y-4">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Experience Level</h3>
+            <h3 className="block font-medium text-white mb-4 text-[1.25rem]">Niveau d&apos;expérience</h3>
             {['tandem', 'solo', 'experienced'].map((value) => (
-              <label key={value} className="flex items-center gap-3 p-3 bg-white rounded-lg border">
+              <label key={value} className="flex items-center gap-3">
                 <input
                   type="radio"
                   name="experience"
                   value={value}
                   checked={skydiverOption === value}
                   onChange={(e) => setSkydiverOption(e.target.value)}
-                  className="w-5 h-5"
+                  className="form-radio w-6 h-6 text-black bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   required
                 />
-                <span>
-                  {value === 'tandem' ? 'Tandem (Beginner)' :
-                   value === 'solo' ? 'Solo Jump' : 'Experienced Skydiver'}
+                <span className='text-white text-[1.25rem]'>
+                  {value === 'tandem' ? 'Tandem (Débutant)' :
+                    value === 'solo' ? 'Saut en solo' : 'Parachutiste expérimenté'}
                 </span>
               </label>
             ))}
@@ -934,15 +936,15 @@ const SubscriberForm = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-blue-600 text-white p-4 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400"
+          className="w-full text-white bg-black hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-2xl text-xl px-16 py-6 me-2 mb-2 dark:bg-black dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 disabled:bg-gray-400"
         >
-          {isSubmitting ? 'Submitting...' : 'Complete Booking'}
+          {isSubmitting ? 'Soumission en cours...' : 'Réserver'}
         </button>
 
-        <p className="text-sm text-gray-600">
-          * Required fields
+        <p className="text-[1.25] text-white">
+          (*) Champs obligatoires
           <br />
-          Your information is securely stored and never shared with third parties.
+          Soyez assuré que vos données sont stockées en toute sécurité.
         </p>
       </form>
     </div>
