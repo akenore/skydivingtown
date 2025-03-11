@@ -64,7 +64,7 @@ const customTheme: CustomFlowbiteTheme['datepicker'] = {
                     base: "grid w-full grid-cols-7 gap-2",
                     item: {
                          base: "block flex-1 cursor-pointer rounded-lg border text-center md:text-2xl font-semibold leading-10 text-white hover:bg-celticBlue h-10",
-                         selected: "bg-green-200 text-black hover:bg-azure bg-green-200",
+                         selected: "text-white hover:bg-azure",
                          disabled: "text-gray-900 cursor-not-allowed hover:bg-transparent"
                     }
                }
