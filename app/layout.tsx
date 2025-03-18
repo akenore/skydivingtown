@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { GoogleTagManager } from '@next/third-parties/google'
+// import { GoogleTagManager } from '@next/third-parties/google'
 import ApolloProviderWrapper from '../components/apolloProviderWrapper';
 import { Poppins } from "next/font/google";
 import "./globals.css";
@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="GTM-N5R86S6D" />
+      {/* <GoogleTagManager gtmId="GTM-N5R86S6D" /> */}
       <body
         className={`${poppins.variable} antialiased`}
       >

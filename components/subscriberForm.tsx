@@ -378,7 +378,7 @@ const SubscriberForm = () => {
             <div className="space-y-4">
               <h3 className="block font-medium text-white mb-4 text-[1.25rem]">Options:</h3>
               {selectedEvent?.options.map((option) => (
-                <label key={option.id} className="flex items-center gap-3 p-3">
+                <label key={option.id} className="flex items-center gap-3">
                   <input
                     type="checkbox"
                     checked={options.includes(option.name)}
