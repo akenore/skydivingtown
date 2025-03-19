@@ -43,7 +43,6 @@ export default function Hero() {
                 ease: 'back.out(1.7)'
             });
 
-
             gsap.from('.cloud', {
                 y: 100,
                 opacity: 0,
@@ -77,10 +76,10 @@ export default function Hero() {
     }, []);
 
     return (
-        <div ref={heroRef} className="relative">
+        <div ref={heroRef} className="relative overflow-x-hidden">
             <section className="mb-20 bg-hero-bg-mobile md:bg-hero-bg-desktop bg-cover bg-no-repeat h-[878px] w-full relative overflow-hidden">
                 <div className="flex flex-col md:flex-row">
-                    <div className="relative w-full md:w-1/2 pt-10 md:pt-20 md:pl-20 z-10">
+                    <div className="relative w-full md:w-1/2 pt-10 md:pt-20 px-4 md:pl-8 lg:pl-20 z-10">
                         <div className="w-full md:w-1/2 flex justify-center md:justify-start">
                             <Image
                                 src="/logo.svg"
@@ -89,33 +88,33 @@ export default function Hero() {
                                 height={122}
                                 style={{ width: "auto", height: "auto" }}
                                 priority
-                                className="logo w-40 md:w-52"
+                                className="logo w-40 md:w-48 lg:w-52"
                             />
                         </div>
-                        <h1 className="hero-title mt-20 text-4xl text-white text-center font-[Monument] md:text-left md:ml-20 md:text-7xl leading-[3rem]">
+                        <h1 className="hero-title mt-20 text-4xl text-white text-center font-[Monument] md:text-left md:text-6xl lg:text-7xl leading-[1.2] md:leading-[1.3]">
                             <span>SKYDIVING</span><br />
                             <span>TOWN</span><br />
                             <span>En 2025</span>
                         </h1>
-                        <h2 className="hero-date mt-5 md:mt-10 text-2xl md:text-3xl text-white text-center font-[Monument] md:text-left md:ml-20">
+                        <h2 className="hero-date mt-5 md:mt-10 text-2xl md:text-3xl text-white text-center font-[Monument] md:text-left">
                             1st July
                         </h2>
                     </div>
-                    <div className="w-full md:w-1/2 mt-5 md:mt-0">
+                    <div className="w-full md:w-1/2 mt-5 md:mt-0 relative">
                         <Image
                             src="/hero/plane.svg"
                             alt="plane"
                             width={226}
                             height={191}
                             style={{ width: "auto", height: "auto" }}
-                            className="hero-plane absolute top-[67%] -left-[3%] md:top-[23%] md:left-[46%] transform -translate-y-1/2 z-0"
+                            className="hero-plane absolute top-[67%] -left-[3%] md:top-[23%] md:left-[10%] lg:left-[46%] transform -translate-y-1/2 z-0 w-[180px] md:w-[200px] lg:w-auto"
                         />
                         <Image
                             src="/hero/right-cloud-desktop.svg"
                             alt="cloud right"
                             width={2260}
                             height={1226}
-                            className="cloud absolute right-0 top-[80%] md:top-[50%] md:-right-[44%] transform -translate-y-1/2 z-0 hidden md:block"
+                            className="cloud absolute right-0 top-[80%] md:top-[50%] md:-right-[60%] lg:-right-[44%] transform -translate-y-1/2 z-0 hidden md:block max-w-[200%] md:max-w-[150%] lg:max-w-full"
                         />
                         <Image
                             src="/hero/cloud-mobile.svg"
@@ -123,7 +122,7 @@ export default function Hero() {
                             width={2260}
                             height={1226}
                             priority
-                            className="cloud absolute right-0 top-[85%] md:top-[50%] md:-right-[50%] transform -translate-y-1/2 z-0 block md:hidden"
+                            className="cloud absolute right-0 top-[85%] transform -translate-y-1/2 z-0 block md:hidden max-w-full"
                         />
                     </div>
                 </div>
@@ -132,17 +131,17 @@ export default function Hero() {
                     alt="cloud left"
                     width={1080}
                     height={586}
-                    className="cloud absolute left-0 top-[90%] md:-left-36 transform -translate-y-1/2 z-0 hidden md:block"
+                    className="cloud absolute left-0 top-[90%] md:-left-20 lg:-left-36 transform -translate-y-1/2 z-0 hidden md:block max-w-[120%] md:max-w-full"
                 />
             </section>
             <Image
                 src="/hero/skydivers.svg"
                 alt="skydivers"
-                width={882}
-                height={883}
+                width={884}
+                height={843}
                 priority
                 style={{ width: "auto", height: "auto" }}
-                className="skydivers absolute md:-right-20 md:top-[50%] lg:right-20 lg:top-[60%] transform -translate-y-1/2 z-0 hidden md:block"
+                className="skydivers absolute md:-right-10 md:top-[50%] lg:right-20 lg:top-[60%] transform -translate-y-1/2 z-0 hidden md:block w-[90%] md:w-[70%] lg:w-auto max-w-full"
             />
             <Image
                 src="/hero/skydivers-mobile.svg"
@@ -151,7 +150,7 @@ export default function Hero() {
                 height={431}
                 priority
                 style={{ width: "auto", height: "auto" }}
-                className="skydivers absolute right-0 top-[85%] transform -translate-y-1/2 z-0 block md:hidden"
+                className="skydivers absolute right-0 top-[85%] transform -translate-y-1/2 z-0 block md:hidden max-w-full"
             />
         </div>
     );
