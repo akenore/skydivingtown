@@ -124,7 +124,7 @@ const SubscriberForm = () => {
   const [surname, setSurname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
-  const [birthDate, setBirthDate] = useState<string>('');
+  // const [birthDate, setBirthDate] = useState<string>('');
   const [gender, setGender] = useState<string>('');
   const [altitude, setAltitude] = useState<string>('');
   const [skydiverOption, setSkydiverOption] = useState<string>('');
@@ -145,7 +145,9 @@ const SubscriberForm = () => {
     skip: !eventId,
     client,
   });
-
+  const [birthDay, setBirthDay] = useState<string>('');
+  const [birthMonth, setBirthMonth] = useState<string>('');
+  const [birthYear, setBirthYear] = useState<string>('');
   const [createSubscriber] = useMutation(CREATE_SUBSCRIBER, { client });
 
   const handleDateChange = (date: Date | null, eventDateId: string) => {
@@ -181,6 +183,7 @@ const SubscriberForm = () => {
       alert('Veuillez remplir tous les champs obligatoires.');
       return;
     }
+    const birthDate = `${birthYear}-${birthMonth.padStart(2, '0')}-${birthDay.padStart(2, '0')}`;
 
     const selectedTimeSlot = availableTimes.find(t => t.id === selectedTime);
     if (!selectedTimeSlot || selectedTimeSlot.availableSlots < 1) {
@@ -316,15 +319,72 @@ const SubscriberForm = () => {
             className="mt-1 bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
             required
           />
-          <input
-            type="date"
-            value={birthDate}
-            onChange={(e) => setBirthDate(e.target.value)}
-            className="mt-1 bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
-            required
-          />
+          {/* <div className="relative">
+            <label htmlFor="birthDate" className="sr-only">Date de naissance</label>
+            <input
+              id="birthDate"
+              type="date"
+              value={birthDate}
+              onChange={(e) => setBirthDate(e.target.value)}
+              className="mt-1 bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
+              required
+            />
+          </div> */}
+          <div>
+            <span className="text-white text-[1.25rem]">Date de naissance</span>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="relative">
+                <label htmlFor="birthDay" className="sr-only">Jour</label>
+                <select
+                  id="birthDay"
+                  value={birthDay}
+                  onChange={(e) => setBirthDay(e.target.value)}
+                  className="bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
+                  required
+                >
+                  <option value="">Jour</option>
+                  {[...Array(31)].map((_, i) => (
+                    <option key={i + 1} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="relative">
+                <label htmlFor="birthMonth" className="sr-only">Mois</label>
+                <select
+                  id="birthMonth"
+                  value={birthMonth}
+                  onChange={(e) => setBirthMonth(e.target.value)}
+                  className="bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
+                  required
+                >
+                  <option value="">Mois</option>
+                  {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((month, i) => (
+                    <option key={i + 1} value={i + 1}>{month}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="relative">
+                <label htmlFor="birthYear" className="sr-only">Année</label>
+                <select
+                  id="birthYear"
+                  value={birthYear}
+                  onChange={(e) => setBirthYear(e.target.value)}
+                  className="bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
+                  required
+                >
+                  <option value="">Année</option>
+                  {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(year => (
+                    <option key={year} value={year}>{year}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
 
           <div className="p-4">
+            <span className="text-white text-[1.25rem]">Sexe</span>
             <div className="flex gap-4">
               <label className="flex items-center gap-3 text-white text-[1.25rem]">
                 <input
@@ -352,17 +412,24 @@ const SubscriberForm = () => {
             </div>
           </div>
 
-          <select
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-            className="bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
-            required
-          >
-            <option value="">Sélectionner un pays*</option>
-            {dataCountries?.allCountries.map((c) => (
-              <option key={c.code} value={c.code}>{c.name}</option>
-            ))}
-          </select>
+          <div className="relative">
+            <label htmlFor="country" className="sr-only">Sélectionner un pays</label>
+            <select
+              id="country"
+              name="country"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              className="bg-azure border placeholder:text-white border-celticBlue text-white text-[1.2rem] rounded-2xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4"
+              required
+              aria-required="true"
+              aria-label="Sélectionner un pays"
+            >
+              <option value="" disabled>Sélectionner un pays*</option>
+              {dataCountries?.allCountries.map((c) => (
+                <option key={c.code} value={c.code}>{c.name}</option>
+              ))}
+            </select>
+          </div>
 
           <input
             type="text"

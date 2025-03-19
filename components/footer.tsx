@@ -30,7 +30,7 @@ export default function Footer() {
                                              <Image
                                                   className="mr-3"
                                                   src="/line-icon.svg"
-                                                  alt="instagram"
+                                                  alt="instagram icon"
                                                   width={31}
                                                   height={4}
                                                   style={{ width: "auto", height: "auto" }}
@@ -43,7 +43,7 @@ export default function Footer() {
                                              <Image
                                                   className="mr-3"
                                                   src="/line-icon.svg"
-                                                  alt="instagram"
+                                                  alt="Facebook icon"
                                                   width={31}
                                                   height={4}
                                                   style={{ width: "auto", height: "auto" }}
@@ -56,7 +56,7 @@ export default function Footer() {
                                              <Image
                                                   className="mr-3"
                                                   src="/line-icon.svg"
-                                                  alt="instagram"
+                                                  alt="TikTok icon"
                                                   width={31}
                                                   height={4}
                                                   style={{ width: "auto", height: "auto" }}
